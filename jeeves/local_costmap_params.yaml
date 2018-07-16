@@ -1,0 +1,15 @@
+local_costmap:
+
+  global_frame: /odom
+  robot_base_frame: kinect2_base_link
+  update_frequency: 2.5
+  publish_frequency: 2.5
+  static_map: false
+  rolling_window: true
+  # height: 0.5
+  # width: 0.5
+  cost_scaling_factor: 10.0
+  always_send_full_costmap: true
+  inflate_unknown: true
+  inflation_radius: 0.15
+  robot_radius: 0.4

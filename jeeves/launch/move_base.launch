@@ -1,0 +1,82 @@
+<!--   <arg name="scan_topic" default="/scan"/>
+  <arg name="map_topic" default="/map"/>
+  
+  <remap from="cloud_in"             to="/rtabmap/cloud_map"/>  
+  <remap from="map"              				to="/rtabmap/grid_map"/>  -->  
+        
+<!--   <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
+
+<master auto="start"/>  -->
+<!-- Run the map server --> 
+<launch>
+  <arg name="scan_topic" default="/kinect_scan"/>
+  <arg name="map_topic" default="/map"/>
+
+  <!-- ROS navigation stack move_base -->
+  <!-- <remap from="scan"   to="/kinect_scan"/> -->
+
+	<!-- <remap from="/scan"             to="$(arg scan_topic)"/>   -->
+	<!-- <remap from="/map"             to="$(arg map_topic)"/>  -->
+<!-- <arg name="scan_topic" default="scan"/> -->
+<!-- <arg name="map_topic" default="map"/> -->
+
+  <!-- ROS navigation stack move_base -->
+  <!-- <remap from="scan"             to="$(arg scan_topic)"/>  <! see costmap_common_params_2d.yaml --> 
+  <!-- <remap from="map"              to="$(arg map_topic)"/>   <! see global_costmap_params.yaml --> 
+
+  <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
+    <param name="base_global_planner" value="navfn/NavfnROS"/> 
+   <!-- <param name="controller_frequency" value="5.0"/> -->
+    <rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find jeeves)/local_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find jeeves)/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find jeeves)/base_local_planner_params.yaml" command="load" />
+    <remap from="cloud_in"             to="/rtabmap/cloud_map"/>  
+    <remap from="map"                to="/rtabmap/grid_map"/> 
+    <remap from="/scan"              to="/kinect_scan"/>
+    <!-- <remap from="move_base_simple/goal" to="/rtabmap/goal_out"/> -->
+
+  </node>
+
+</launch>
+
+
+
+<!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find my_map_package)/my_map.pgm my_map_resolution"/>  -->
+<!--- Run AMCL --> 
+<!-- <include file="$(find amcl)/examples/amcl_omni.launch" />  -->
+<!-- </node> -->
+<!-- 
+        <remap from="/kinect2/qhd/points" to="/planner_cloud"/>
+        <remap from="base_scan" to="/base_scan"/>
+        <remap from="map" to="/map"/>
+        <remap from="move_base_simple/goal" to="/planner_goal"/> -->
+        
+<!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+ 	  <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+  	  <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+   	  <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/local_costmap_params_3d.yaml" command="load" />
+   	  <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/global_costmap_params.yaml" command="load" />
+   	  <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/base_local_planner_params.yaml" command="load" />
+</node> -->
+<!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+<param name="base_global_planner" value="navfn/NavfnROS"/>
+<rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+<rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="local_costmap" /> 
+<rosparam file="$(find jeeves)/local_costmap_params.yaml" command="load" ns="local_costmap"/> 
+<rosparam file="$(find jeeves)/global_costmap_params.yaml" command="load" ns="global_costmap" /> 
+<rosparam file="$(find jeeves)/base_local_planner_params.yaml" command="load" />
+
+</node> 
+ -->
+<!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+<rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+<rosparam file="$(find jeeves)/costmap_common_params.yaml" command="load" ns="local_costmap" /> 
+<rosparam file="$(find jeeves)/local_costmap_params.yaml" command="load" /> 
+<rosparam file="$(find jeeves)/global_costmap_params.yaml" command="load" /> 
+<rosparam file="$(find jeeves)/base_local_planner_params.yaml" command="load" />
+
+</node> -->
